@@ -1,11 +1,11 @@
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3001;
-const cors = require("cors")
+//const cors = require("cors")
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}));
-app.use(cors())
+//app.use(cors())
 
 const pokemonsCapturados = [
   "caterpie",
@@ -37,25 +37,9 @@ app.get('/tico', (req, res) => {
     res.send('Teco')
 })
 
-app.get("/pokemons", async (req, res) => {
-  try {
-    const pokemons = await Promise.all(
-      ashCapturados.map(async (nome) => {
-        const r = await fetch(`https://pokeapi.co/api/v2/pokemon/${nome}`);
-        if (!r.ok) throw new Error("Falha na  Busca");
-        const d = await r.json()
-        return {
-          id: d.id,
-          nome: d.name,
-          tipos: d.types.map((t) => t.type.name),
-          imagem: d.sprites.front_default,
-        }
-      })
-    );
-    res.json(pokemons)
-  }catch (err){
-    res.status(500).json({erro: err.message})
-  }
+app.get('/pokemons', (req, res) => {
+    console.log("Just got a request!")
+    res.send(pokemonsCapturados)
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
@@ -76,7 +60,7 @@ const html = `
           disableForReducedMotion: true
         });
       }, 500);
-      const pokemons = await fetch("https://express-hello-world-rjcs.onrender.com/pokemons").then(r => r.json())
+     
     </script>
     <style>
       @import url("https://p.typekit.net/p.css?s=1&k=vnd5zic&ht=tk&f=39475.39476.39477.39478.39479.39480.39481.39482&a=18673890&app=typekit&e=css");
