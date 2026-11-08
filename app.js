@@ -62,6 +62,16 @@ app.use((err, req, res, next) => {
     res.status(500).json({ erro: "Bug em producao simulado", mensagem: err.message });
 })
 
+app.get('/api', async (req, res) => {
+    try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=5');
+        const dados = await response.json();
+        res.json(dados);
+    } catch (erro) {
+        res.status(500).json({ erro: 'Falha ao consumir API externa', mensagem: erro.message });
+    }
+})
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 
