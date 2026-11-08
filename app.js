@@ -7,19 +7,6 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}));
 //app.use(cors())
 
-const pokemonsCapturados = [
-  "caterpie",
-  "pidgeotto",
-  "butterfree",
-  "bulbasaur",
-  "krabby",
-  "primeape",
-  "muk",
-  "tauros",
-  "lapras",
-  "snowlax",
-];
-
 app.get("/", (req, res) => res.type('html').send(html));
 
 app.get('/req', (req, res) => {
@@ -30,16 +17,6 @@ app.get('/req', (req, res) => {
 app.get('/meunome', (req, res) => {
     console.log("Just got a request!")
     res.send('Meu nome é Filipe Pereira Lima')
-})
-
-app.get('/tico', (req, res) => {
-    console.log("Just got a request!")
-    res.send('Teco')
-})
-
-app.get('/pokemons', (req, res) => {
-    console.log("Just got a request!")
-    res.send(pokemonsCapturados)
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
