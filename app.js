@@ -51,6 +51,17 @@ app.post('/series', (req, res) => {
     res.json(seriesFavoritas);
 })
 
+app.get('/erro', (req, res, next) => {
+    const dados = null;
+    console.log(dados.propriedadeInexistente);
+    res.send('Erro simulado');
+})
+
+app.use((err, req, res, next) => {
+    console.error("Erro capturado:", err.message);
+    res.status(500).json({ erro: "Bug em producao simulado", mensagem: err.message });
+})
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 
